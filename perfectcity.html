@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MY2</title>
+</head>
+<body>
+<h2>Result:</h2>
+<p id="result"></p>
+<script type="text/javascript">
+	function perfectCity(departure, destination) {
+  var result = 0;
+  for (var i = 0; i < 2; i++) {
+    if (Math.floor(departure[i]) === Math.floor(destination[i])) {
+      var floorSum = departure[i] - Math.floor(departure[i]);
+      floorSum += destination[i] - Math.floor(destination[i]);
+      if (floorSum < 1) {
+        result += floorSum;
+        departure[i] = Math.floor(departure[i]);
+        destination[i] = Math.floor(destination[i]);
+      }
+      else {
+        result += 2 - floorSum;
+        departure[i] = Math.ceil(departure[i]);
+        destination[i] = Math.ceil(destination[i]);
+      }
+    }
+    else {
+      if (departure[i] > destination[i]) {
+        var tmp = destination;
+        destination = departure;
+        departure = tmp;
+      }
+      result += departure[i] - Math.ceil(departure[i]);
+      departure[i] = Math.ceil(departure[i]);
+      result += destination[i] - Math.floor(destination[i]);
+      destination[i] = Math.floor(destination[i]);
+    }
+    result += destination[i] - departure[i];
+  }
+
+  return result;
+}
+var departure = [0.4, 1],
+    destination = [0.9, 3];
+document.getElementById("result").innerHTML = perfectCity(departure,destination);
+
+</script>
+</body>
+</html>
